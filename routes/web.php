@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\{ValidationController,VarianController};
+use App\Http\Controllers\{KeranjangController, ValidationController,VarianController};
+use App\Models\Whislist;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,11 +28,13 @@ Route::middleware('guest')->group(function(){
     });
 });
 
-
-
 Route::controller(VarianController::class)->group(function(){
     Route::get('/varian','index')->name('varian');
     Route::get('select','select')->name('varian.select');
     Route::get('price','price')->name('varian.price');
     Route::get('/varian/show/{id}','show')->name('varian.show');
+    Route::get('/whislist','wishlist')->name('varian.whislist');
+    Route::get('/whislist/hapus','whislistDelete')->name('varian.whislist.hapus');
 });
+
+Route::resource('keranjang', KeranjangController::class);

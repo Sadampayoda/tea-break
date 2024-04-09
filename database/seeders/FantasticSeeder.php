@@ -69,21 +69,21 @@ class FantasticSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'name' => 'Dalgona Coffee',
-            'image' => 'dalgona-coffee',
+            'image' => 'dalgona-coffee.png',
             'price' => '13000',
             'description' => 'Minuman susu dengan kombinasi topping dalgona rasa coffee.',
             'varian' => 'Fantastic Tea Break'
         ]);
         DB::table('menus')->insert([
             'name' => 'Chocholate Milk',
-            'image' => 'chocholate-milk',
+            'image' => 'chocholate-milk.png',
             'price' => '13000',
             'description' => 'Minuman susu dengan kombinasi rasa coklat.',
             'varian' => 'Fantastic Tea Break'
         ]);
         DB::table('menus')->insert([
             'name' => 'Brown Sugar Dalgona Coffee',
-            'image' => 'brown-sugar-dalgona-coffee',
+            'image' => 'brown-sugar-dalgona-coffee.png',
             'price' => '16000',
             'description' => 'Minuman susu dengan kombinasi gula aren ditambahkan dalgona rasa coffee.',
             'varian' => 'Fantastic Tea Break'

@@ -4,7 +4,8 @@
             'name' => $item->name,
             'image' => $item->image,
             'price' => $item->price,
-            'word' => $item->word
+            'word' => $item->word,
+            'id' => $item->id
         ])
     </div>  
 @endforeach

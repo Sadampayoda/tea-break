@@ -4,16 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Menu extends Model
+class Keranjang extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
-
-    public function whislist():HasMany
-    {
-        return $this->hasMany(Whislist::class);
-    }
 }

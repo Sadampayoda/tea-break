@@ -4,18 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Repositories\MenuRepositories;
+use App\Repositories\WhislistRepositories;
 use Illuminate\Http\Request;
 use App\Utils\Response;
 use Doctrine\Inflector\Rules\Word;
+use Exception;
 use Symfony\Polyfill\Intl\Idn\Idn;
 
 class VarianController extends Controller
 {
-    protected $menusRepository;
+    protected $menusRepository,$whislistsRepositories;
 
-    public function __construct(MenuRepositories $menusRepository)
+    public function __construct(
+        MenuRepositories $menusRepository,
+        WhislistRepositories $whislistsRepositories
+    )
     {
-        $this->menusRepository  = $menusRepository;   
+        $this->menusRepository  = $menusRepository; 
+        $this->whislistsRepositories = $whislistsRepositories;  
     }
 
     
@@ -26,6 +32,7 @@ class VarianController extends Controller
         $menu = $this->menusRepository->Word($menu);
         $categories = $this->menusRepository->Categories();
         $menuTop = $this->menusRepository->TakeMenu(3);
+        
         
 
 
@@ -53,13 +60,35 @@ class VarianController extends Controller
         ]);
     }
 
-    public function show( $id)
+    public function show($id)
     {
-        // var_dump($request->id);die;
-    
+        // return $id;
+        $whislist = $this->whislistsRepositories->findMenuUser(auth()->user()->id,$id);
+        try{
+            $whislist = $whislist[0]->id;
+        }catch(Exception $e){
+            $whislist = 0;
+        }
+
         return view('varian.show',[
             'menu' => $this->menusRepository->find('id',$id),
             'count'  => $this->menusRepository->count(),
+            'whislist' => $whislist,
         ]);
+    }
+
+    public function wishlist(Request $request)
+    {
+        $this->whislistsRepositories->insert([
+            'user_id' => auth()->user()->id,
+            'menu_id' => $request->menu
+        ]);
+
+
+    }
+
+    public function whislistDelete(Request $request)
+    {
+        $this->whislistsRepositories->remove(auth()->user()->id,$request->id);
     }
 }

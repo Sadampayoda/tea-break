@@ -33,7 +33,7 @@ class ValidationController extends Controller
         
         
         
-        User::created([
+        User::insert([
             'email' => $request->emails,
             'password' => bcrypt($request->passwords)
         ]);

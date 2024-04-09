@@ -51,10 +51,44 @@
                     </div>
                 </div>
                 <div class="col mt-5 input-group">
-                    <button class="btn fs-1"><i class="bi bi-heart"></i></button><small class="d-flex align-items-center fs-2 fw-lighter text-body-secondary">Add to wishlist</small>
+                    <button id="whislist" class=" fs-1 border-0"><i id="love" class="bi bi-heart"></i></button><small class="d-flex align-items-center fs-2 fw-lighter text-body-secondary">Add to wishlist</small>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        var whislist = {{$whislist}}
+        if(whislist){
+            $('#love').addClass('bi bi-heart-fill text-danger')
+            $('#love').removeClass('bi bi-heart')
+            $('#whislist').on('click',function(){
+                $.ajax({
+                    type:'GET',
+                    url : "{{route('varian.whislist.hapus')}}",
+                    data:"id="+{{$menu[0]->id}},
+                    success:function(data){
+                        $('#love').removeClass('bi bi-heart-fill text-danger')
+                        $('#love').addClass('bi bi-heart')
+                    }
+                })
+            })
+        }else{
+            $('#love').removeClass('bi bi-heart-fill text-danger')
+            $('#love').addClass('bi bi-heart')
+            $('#whislist').on('click',function(){
+                $.ajax({
+                    type:'GET',
+                    url : "{{route('varian.whislist')}}",
+                    data:"menu="+{{$menu[0]->id}},
+                    success:function(data){
+                        $('#love').addClass('bi bi-heart-fill text-danger')
+                        $('#love').removeClass('bi bi-heart')
+                    }
+                })
+            })
+        }
+    })
+</script>
 @endsection
